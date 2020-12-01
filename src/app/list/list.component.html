@@ -7,7 +7,12 @@
   </mat-grid-list>
 
   <div class="button-container">
-    <button mat-fab color="accent" matTooltip="Click To Add New To-do List.">
+    <button
+      mat-fab
+      color="accent"
+      matTooltip="Click To Add New To-do List."
+      (click)="createTodoHandler()"
+    >
       <mat-icon>add</mat-icon>
     </button>
   </div>
