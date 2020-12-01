@@ -19,3 +19,16 @@ body {
 .app-icon {
   margin: 0 8px;
 }
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+
+  mat-icon {
+    vertical-align: text-bottom;
+  }
+}
+
+.nav-link:visited {
+  color: #ffffff;
+}
