@@ -1,9 +1,9 @@
 <div class="page-container">
   <mat-grid-list [cols]="cols" rowHeight="2:1" gutterSize="1em">
-    <mat-grid-tile>1 </mat-grid-tile>
-    <mat-grid-tile> 2</mat-grid-tile>
-    <mat-grid-tile> 3</mat-grid-tile>
-    <mat-grid-tile> 4</mat-grid-tile>
+    <mat-grid-tile *ngFor="let list of lists" (click)="openList(list.id)">
+      <mat-grid-tile-header>{{ list.title }}</mat-grid-tile-header>
+      <span>{{ list.completed }} completed of {{ list.count }}</span>
+    </mat-grid-tile>
   </mat-grid-list>
 
   <div class="button-container">

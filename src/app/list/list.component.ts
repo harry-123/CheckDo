@@ -1,6 +1,7 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Router } from '@angular/router';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'app-list',
@@ -16,7 +17,24 @@ export class ListComponent implements OnInit, AfterContentInit {
     xs: 1,
   };
   cols: number;
-  constructor(private mediaObserver: MediaObserver, private router: Router) {}
+  lists = [];
+  constructor(
+    private mediaObserver: MediaObserver,
+    private router: Router,
+    private db: AngularFireDatabase
+  ) {
+    db.list('/lists')
+      .valueChanges()
+      .subscribe((lists) => {
+        this.lists = lists;
+        for (const key in this.lists) {
+          if (this.lists.hasOwnProperty(key)) {
+            this.lists[key].id = key;
+          }
+        }
+        console.log(lists);
+      });
+  }
 
   ngOnInit(): void {}
 
@@ -28,5 +46,9 @@ export class ListComponent implements OnInit, AfterContentInit {
 
   createTodoHandler() {
     this.router.navigate(['/viewer']);
+  }
+
+  openList(id: string) {
+    this.router.navigate(['viewer', id]);
   }
 }

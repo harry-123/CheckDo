@@ -14,6 +14,16 @@ mat-grid-tile {
   right: 1.5em;
 }
 
+.mat-grid-tile {
+  cursor: pointer;
+}
+
+.mat-grid-tile span {
+  position: absolute;
+  left: 20px;
+  top: 70px;
+}
+
 @media (min-width: 900px) {
   .page-container {
     margin: 1em 8em;

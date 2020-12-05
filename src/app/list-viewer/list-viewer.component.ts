@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../models/task.model';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-viewer',
@@ -9,8 +11,20 @@ import { Task } from '../../models/task.model';
 export class ListViewerComponent implements OnInit {
   tasks: Task[] = [];
   task: string;
+  listId: string;
 
-  constructor() {}
+  constructor(private db: AngularFireDatabase, private route: ActivatedRoute) {
+    this.route.paramMap.subscribe((params) => {
+      this.listId = params.get('id');
+    });
+
+    db.list<Task>(`/lists/${this.listId}/tasks`)
+      .valueChanges()
+      .subscribe((tasks) => {
+        console.log(tasks);
+        this.tasks = tasks;
+      });
+  }
 
   ngOnInit(): void {}
 
@@ -19,7 +33,7 @@ export class ListViewerComponent implements OnInit {
       const toDo = new Task();
       toDo.description = this.task;
       toDo.completed = false;
-      this.tasks.push(toDo);
+      this.db.list(`/lists/${this.listId}/tasks`).push(toDo);
       this.task = '';
     }
   }
