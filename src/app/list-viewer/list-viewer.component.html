@@ -1,1 +1,29 @@
-<p>list-viewer works!</p>
+<div class="page-container">
+  <mat-card>
+    <mat-selection-list [compareWith]="compareTasks">
+      <ng-template ngFor let-i="index" let-task [ngForOf]="tasks">
+        <mat-list-option
+          #toDo
+          checkboxPosition="before"
+          [value]="task.description"
+          [(selected)]="task.completed"
+          [ngClass]="{ 'task-done': toDo.selected }"
+          >{{ task.description }}</mat-list-option
+        >
+        <mat-divider *ngIf="i < tasks.length - 1" [inset]="true"></mat-divider>
+      </ng-template>
+    </mat-selection-list>
+
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        placeholder="Task"
+        [(ngModel)]="task"
+        (keyup.enter)="addTask()"
+      />
+      <button matSuffix mat-mini-fab color="accent" (click)="addTask()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-form-field>
+  </mat-card>
+</div>

@@ -1,0 +1,15 @@
+mat-card {
+  height: 80vh;
+  width: 25em;
+  margin: 1em auto 0;
+
+  mat-form-field {
+    position: absolute;
+    bottom: 0;
+    width: inherit;
+  }
+}
+
+.task-done {
+  text-decoration: line-through;
+}
